@@ -57,7 +57,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyHolder
             @Override
             public void onClick(View view) {
                 studentList.remove(student);
-                
+
                 notifyItemRemoved(position);
             }
         });
