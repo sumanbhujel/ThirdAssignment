@@ -1,24 +1,24 @@
 package com.example.thirdassignment.model;
 
 public class Student {
-    private String fullname;
+    private String name;
     private String age;
     private String gender;
     private String address;
 
-    public Student(String fullname, String age, String gender, String address) {
-        this.fullname = fullname;
+    public Student(String name, String age, String gender, String address) {
+        this.name = name;
         this.age = age;
         this.gender = gender;
         this.address = address;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getName() {
+        return name;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAge() {

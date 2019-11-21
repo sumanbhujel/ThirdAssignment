@@ -1,13 +1,16 @@
 package com.example.thirdassignment.ui.dashboard;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -16,15 +19,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.thirdassignment.R;
+import com.example.thirdassignment.model.Student;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
     EditText etName, etAge, etAddress;
-    RadioGroup rgGender;
-    RadioButton rMale, rFemale, rOther;
-    String name, age, address;
-
+    RadioGroup radioGroup;
+    Button btnSave;
+    String name, age, address, gender;
+    public static List<Student> studentArrayList = new ArrayList<>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -36,19 +43,76 @@ public class DashboardFragment extends Fragment {
         etName = root.findViewById(R.id.eName);
         etAge = root.findViewById(R.id.eAge);
         etAddress = root.findViewById(R.id.eAddress);
-        rgGender = root.findViewById(R.id.radioGroup);
-        rMale = root.findViewById(R.id.rbMale);
-        rFemale = root.findViewById(R.id.rbFemale);
-        rOther = root.findViewById(R.id.rbOther);
-
+        radioGroup = root.findViewById(R.id.radioGroup);
+        btnSave = root.findViewById(R.id.button);
 
 
         dashboardViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        if (i == R.id.rbMale) {
+                            gender = "Male";
+                        }
+                        if (i == R.id.rbFemale) {
+                            gender = "Female";
+                        }
+                        if (i == R.id.rbOther) {
+                            gender = "Other";
+                        }
+
+                    }
+
+
+                });
+
+                btnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        name = etName.getText().toString();
+                        age = etAge.getText().toString();
+                        address = etAddress.getText().toString();
+                        if (validate()) {
+                            studentArrayList.add(new Student(name, age, gender, address));
+
+                            etName.setText(null);
+                            etAge.setText(null);
+                            etAddress.setText(null);
+
+                        }
+                    }
+
+                });
+
             }
         });
         return root;
+    }
+
+    public boolean validate() {
+        if (TextUtils.isEmpty(name)) {
+            etName.setError("Enter your FullName");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(age)) {
+            etAge.setError("Enter your Age");
+            return false;
+        }
+        if (TextUtils.isEmpty(address)) {
+            etAddress.setError("Enter your Address");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(gender)) {
+            Toast.makeText(getContext(), " Select your Gender ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        return true;
     }
 }

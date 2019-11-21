@@ -39,7 +39,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyHolder
         final Student student = studentList.get(position);
         String gender = student.getGender();
 
-        holder.tName.setText(student.getFullname());
+        holder.tName.setText(student.getName());
         holder.tAge.setText(student.getAge());
         holder.tAddress.setText(student.getAddress());
 
