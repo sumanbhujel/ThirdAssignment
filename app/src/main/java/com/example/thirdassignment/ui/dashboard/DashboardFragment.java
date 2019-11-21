@@ -33,6 +33,38 @@ public class DashboardFragment extends Fragment {
     String name, age, address, gender;
     public static List<Student> studentArrayList = new ArrayList<>();
 
+    public boolean validate() {
+        if (TextUtils.isEmpty(name)) {
+            etName.setError("Enter your FullName");
+            etName.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(age)) {
+            etAge.setError("Enter your Age");
+            etAge.requestFocus();
+            return false;
+        }
+        if (!TextUtils.isDigitsOnly(age)) {
+            etAge.setError("Invalid Number");
+            etAge.requestFocus();
+            return false;
+        }
+        if (TextUtils.isEmpty(address)) {
+            etAddress.setError("Enter your Address");
+            etAddress.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(gender)) {
+            Toast.makeText(getContext(), " Select your Gender ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        return true;
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +110,8 @@ public class DashboardFragment extends Fragment {
                         if (validate()) {
                             studentArrayList.add(new Student(name, age, gender, address));
 
+                            Toast.makeText(getContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+
                             etName.setText(null);
                             etAge.setText(null);
                             etAddress.setText(null);
@@ -92,27 +126,5 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
-    public boolean validate() {
-        if (TextUtils.isEmpty(name)) {
-            etName.setError("Enter your FullName");
-            return false;
-        }
 
-        if (TextUtils.isEmpty(age)) {
-            etAge.setError("Enter your Age");
-            return false;
-        }
-        if (TextUtils.isEmpty(address)) {
-            etAddress.setError("Enter your Address");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(gender)) {
-            Toast.makeText(getContext(), " Select your Gender ", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-
-        return true;
-    }
 }

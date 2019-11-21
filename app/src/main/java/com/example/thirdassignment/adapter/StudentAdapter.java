@@ -46,9 +46,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyHolder
         holder.tGender.setText(student.getGender());
 
         if (gender.equals("Male")) {
-            holder.imageView.setImageResource(R.drawable.image);
+            holder.imageView.setImageResource(R.drawable.male_icon);
         } else if (gender.equals("Female")) {
-            holder.imageView.setImageResource(R.drawable.image);
+            holder.imageView.setImageResource(R.drawable.female_ic);
         } else {
             holder.imageView.setImageResource(R.drawable.image);
         }
@@ -57,6 +57,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyHolder
             @Override
             public void onClick(View view) {
                 studentList.remove(student);
+                
                 notifyItemRemoved(position);
             }
         });
